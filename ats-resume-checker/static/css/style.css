@@ -1,0 +1,6 @@
+body { background: #f4f7f6; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 50px; }
+.card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 600px; }
+h1 { color: #1a2a6c; text-align: center; }
+textarea { width: 100%; height: 150px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; }
+button { width: 100%; background: #1a2a6c; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
+#result { margin-top: 20px; white-space: pre-wrap; background: #f9f9f9; padding: 15px; border-radius: 8px; }

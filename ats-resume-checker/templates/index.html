@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Royal ATS Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Royal ATS Optimizer</h1>
+        <textarea id="jd" placeholder="Paste Job Description..."></textarea>
+        <input type="file" id="resume" accept=".pdf,.docx">
+        <button onclick="analyze()">Analyze with Gemini 2.5</button>
+        <div id="result"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

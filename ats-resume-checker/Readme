@@ -1,0 +1,303 @@
+# ATS Resume Checker 🚀
+
+AI-powered resume analysis tool that evaluates your resume for Applicant Tracking System (ATS) compatibility using Google's Gemini API.
+
+## ✨ Features
+
+- **AI-Powered Analysis**: Uses Google Gemini 2.0 Flash for intelligent resume evaluation
+- **ATS Score**: Get a 0-100 compatibility score
+- **Keyword Analysis**: Identify found and missing keywords
+- **Formatting Review**: Detect formatting issues that confuse ATS systems
+- **Job Description Matching**: Optional job description analysis for targeted improvements
+- **Real-time Results**: See comprehensive analysis with actionable recommendations
+- **Royal UI Design**: Modern, visually stunning interface with smooth animations
+- **File Support**: Upload PDF, DOCX, or TXT resumes
+
+## 📋 Project Structure
+
+```
+ats-resume-checker/
+├── .env                      # Environment variables (API keys)
+├── app.py                    # Flask backend
+├── requirements.txt          # Python dependencies
+├── uploads/                  # Temporary resume storage
+├── static/
+│   ├── css/
+│   │   └── style.css        # Royal theme styling
+│   └── js/
+│       └── script.js        # Client-side logic
+└── templates/
+    └── index.html           # Main upload dashboard
+```
+
+## 🚀 Quick Start
+
+### 1. Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+- Google Gemini API key
+
+### 2. Installation
+
+Clone or navigate to the project directory:
+```bash
+cd ats-resume-checker
+```
+
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configuration
+
+Create a `.env` file in the project root (or update the existing one):
+```
+GEMINI_API_KEY=your_actual_gemini_api_key_here
+FLASK_ENV=development
+FLASK_DEBUG=True
+```
+
+**Get your Gemini API Key:**
+1. Visit [Google AI Studio](https://aistudio.google.com/apikey)
+2. Click "Create API key"
+3. Copy the key and paste it in `.env`
+
+### 4. Run the Application
+
+```bash
+python app.py
+```
+
+The application will start on `http://localhost:5000`
+
+Open your browser and navigate to `http://localhost:5000`
+
+## 💻 How to Use
+
+1. **Upload Resume**: 
+   - Drag and drop a PDF, DOCX, or TXT file
+   - Or click the upload area to browse
+
+2. **Add Job Description** (Optional):
+   - Paste the target job description for better analysis
+   - Helps identify missing keywords specific to the role
+
+3. **Analyze**:
+   - Click "Analyze Resume" button
+   - Wait for AI analysis (usually 10-30 seconds)
+
+4. **Review Results**:
+   - **ATS Score**: Overall compatibility (0-100)
+   - **Strengths**: What your resume does well
+   - **Areas to Improve**: Identified weaknesses
+   - **Keywords Found**: Matched important terms
+   - **Missing Keywords**: Recommended additions
+   - **Formatting Issues**: ATS-problematic elements
+   - **Recommendations**: Actionable improvements
+
+5. **Export or Analyze Again**:
+   - Export results as JSON
+   - Start a new analysis
+
+## 🔧 API Endpoints
+
+### POST `/upload`
+Analyzes a resume for ATS compatibility.
+
+**Request:**
+```
+Content-Type: multipart/form-data
+
+Fields:
+- resume (file): PDF, DOCX, or TXT file
+- job_description (string, optional): Job description text
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "analysis": {
+    "ats_score": 78,
+    "summary": "Good ATS compatibility with minor improvements needed",
+    "strengths": ["Clear structure", "Good keyword usage", ...],
+    "weaknesses": ["Some formatting issues", ...],
+    "keywords_found": ["Python", "Machine Learning", ...],
+    "keywords_missing": ["Data Analysis", "SQL", ...],
+    "formatting_issues": ["Tables not supported", ...],
+    "recommendations": ["Remove special characters", ...],
+    "ats_compatibility": {
+      "sections": 6,
+      "clarity": 85,
+      "keyword_optimization": 75,
+      "formatting_quality": 80
+    }
+  }
+}
+```
+
+### GET `/health`
+Health check endpoint.
+
+## 🎨 Design Features
+
+- **Royal Purple Theme**: Sophisticated gradient backgrounds
+- **Gold Accents**: Premium highlights and interactive elements
+- **Smooth Animations**: Elegant transitions and loading states
+- **Responsive Design**: Works perfectly on mobile and desktop
+- **Playfair Display Typography**: Elegant serif fonts for headers
+- **Glassmorphism**: Modern frosted glass effect on cards
+
+## 📦 Dependencies
+
+- **Flask 3.0.0**: Web framework
+- **Werkzeug 3.0.1**: WSGI utilities
+- **google-genai 0.3.0**: Gemini API client
+- **PyPDF2 3.0.1**: PDF text extraction
+- **python-docx 0.8.11**: DOCX file handling
+- **python-dotenv 1.0.0**: Environment variable management
+
+## ⚙️ Configuration Options
+
+### Flask Settings
+In `app.py`, customize:
+```python
+app.config['UPLOAD_FOLDER'] = 'uploads'           # Upload directory
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Max file size
+```
+
+### Gemini Model
+Currently using `gemini-2.0-flash` for faster processing. Options:
+- `gemini-2.0-flash` (recommended): Fast and efficient
+- `gemini-1.5-pro`: More detailed analysis
+- `gemini-1.5-flash`: Balanced option
+
+## 🛡️ Security Considerations
+
+- **File Validation**: Only allows PDF, DOCX, TXT files
+- **File Size Limit**: 16MB maximum
+- **Temporary Storage**: Uploaded files are deleted after processing
+- **API Security**: Store API key in environment variable, never commit to repo
+- **Input Sanitization**: Filenames are sanitized using `secure_filename`
+
+## 🐛 Troubleshooting
+
+### API Key Not Found
+```
+Error: GEMINI_API_KEY environment variable not set
+```
+**Solution**: Add `GEMINI_API_KEY` to `.env` file
+
+### File Upload Fails
+```
+Only PDF, DOCX, and TXT files are allowed
+```
+**Solution**: Ensure file extension is .pdf, .docx, or .txt
+
+### Timeout During Analysis
+**Solution**: 
+- Check your internet connection
+- Ensure API key is valid
+- Try with a shorter resume
+
+### Port Already in Use
+```
+OSError: [Errno 48] Address already in use
+```
+**Solution**: 
+```bash
+# Change port in app.py:
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5001)  # Use 5001 instead
+```
+
+## 📈 Performance Tips
+
+- Keep resumes under 2 pages for faster analysis
+- Use standard formatting to avoid parsing issues
+- Include relevant keywords from the job description
+- Avoid tables, images, and complex formatting
+
+## 🚀 Deployment
+
+### Heroku Deployment
+```bash
+# Create Procfile
+echo "web: gunicorn app:app" > Procfile
+
+# Deploy
+git push heroku main
+```
+
+### Docker Deployment
+Create a `Dockerfile`:
+```dockerfile
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["python", "app.py"]
+```
+
+Build and run:
+```bash
+docker build -t ats-checker .
+docker run -e GEMINI_API_KEY=your_key -p 5000:5000 ats-checker
+```
+
+## 📝 Example Resume
+
+The app works with any standard resume format. Best practices:
+- Clear section headers: Summary, Experience, Education, Skills
+- Consistent formatting throughout
+- Bullet points for achievements
+- Standard fonts (Arial, Calibri, Times New Roman)
+- No images or tables
+- Relevant keywords matching job description
+
+## 🤝 Contributing
+
+To improve the analysis:
+1. Modify the prompt in `analyze_resume_with_gemini()` function
+2. Add new analysis metrics to the JSON response
+3. Update the HTML to display new fields
+
+## 📄 License
+
+MIT License - feel free to use and modify
+
+## 💡 Tips for Better Results
+
+1. **Remove Unnecessary Details**: ATS systems prefer clarity over detail
+2. **Use Keywords**: Match 70-80% of job description keywords
+3. **Format Simply**: Avoid columns, text boxes, and unusual formatting
+4. **Use Standard Fonts**: Stick to common, readable fonts
+5. **Include Dates**: Make timeline clear for work history
+6. **Spell Check**: Typos can confuse ATS systems
+7. **Consistent Structure**: Use the same format for all entries
+
+## 🆘 Support
+
+If you encounter issues:
+1. Check the error message carefully
+2. Verify API key is valid at Google AI Studio
+3. Ensure file is properly formatted
+4. Check Flask logs for detailed error messages
+5. Try with a different resume file
+
+## 🔮 Future Enhancements
+
+- [ ] Support for LinkedIn profile analysis
+- [ ] Batch processing multiple resumes
+- [ ] Resume templates and suggestions
+- [ ] Comparison with top candidates
+- [ ] Integration with job boards
+- [ ] Mobile app version
+- [ ] Advanced keyword analytics
+- [ ] Resume parser for extracting structured data
+
+---
+
+**Happy resume optimizing! 🎯**
